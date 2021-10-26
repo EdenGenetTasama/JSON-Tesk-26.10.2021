@@ -10,18 +10,22 @@
 
 <body>
     <form>
-        <!-- <select>
-            <option value="searchByID"></option>
-            <option value="searchByFName"></option>
-            <option value="searchByEmail"></option>
-            <option value="searchOlderAge"></option>
-        </select> -->
-        <input type="text" placeholder="search By ID" id="searchByID">
-        <input type="text" placeholder="search By First Name" id="searchByFName">
+        <select id="selectValue">
+            <option value="searchByID" id="searchByID">search By ID</option>
+            <option value="searchByFName" id="searchByFName">search By First Name</option>
+            <option value="searchByEmail" id="searchByEmail">search By Email</option>
+            <option value="searchOlderAge" id="searchOlderAge">search Older Age</option>
+        </select>
+        <input type="text" placeholder="SEARCH" id="SEARCHInputID">
+        <button type="button" id="buttonID">Check</button>
+
+        <!-- <input type="text" placeholder="search By First Name" id="searchByFName">
         <input type="text" placeholder="search By Email" id="searchByEmail">
-        <input type="text" placeholder="search Older Age" id="searchOlderAge">
- 
+        <input type="text" placeholder="search Older Age" id="searchOlderAge"> -->
     </form>
+    <div id="showResultIDSearch">
+
+    </div>
 
 
     <script src="./main.js"></script>

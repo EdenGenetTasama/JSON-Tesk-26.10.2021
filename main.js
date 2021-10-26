@@ -147,6 +147,7 @@ async function asyncCheckIfEmpty() {
 // asyncCheckIfEmpty().then((res)=>{console.log(res);}).catch((rej)=>{console.log(rej);}).finally(()=>{});
 
 //!2.	צרו פונקצית פרומיס שמקבלת id של משתמש, הפונקציה ממירה את ה JSON  למערך ומחזירה את המשתמש המתאים, במידה והמשתמש קיים.
+let searchByIDValue = document.getElementById("searchByID").value;
 
 function getIdPromise(id) {
   return new Promise((resolve, reject) => {
@@ -162,7 +163,7 @@ function getIdPromise(id) {
 
 async function getIdAsync() {
   try {
-    return await getIdPromise("605acace4ab389d8ed54c496");
+    return await getIdPromise(searchByIDValue);
   } catch (error) {
     return error;
   }
@@ -229,30 +230,74 @@ async function getHigher() {
 //!5.	צרו פונקצית פרומיס שמחזירה מערך של משתמשים שהשם הפרטי שלהם זהה לשם שמתקבל מבחוץ, במידה וישנם משתמשים.
 
 function checkNameExist(userName) {
-    return new Promise((resolve,reject)=>{
-        let arrayOfSameNames=[];
-        let JSONObject = JSON.parse(jsonUserInfo);
-        for (const iterator of JSONObject) {
-            if (userName == iterator.name.first) {
-                arrayOfSameNames.push(iterator);
-                resolve(arrayOfSameNames)
-            }
-        }
-        reject({message : "THERE IS NO USERS UNDER THIS NAME"})
-    })
+  return new Promise((resolve, reject) => {
+    let arrayOfSameNames = [];
+    let JSONObject = JSON.parse(jsonUserInfo);
+    for (const iterator of JSONObject) {
+      if (userName == iterator.name.first) {
+        arrayOfSameNames.push(iterator);
+        resolve(arrayOfSameNames);
+      }
+    }
+    reject({ message: "THERE IS NO USERS UNDER THIS NAME" });
+  });
 }
 
 async function checkNameExistAsync() {
-    try {
-        return await checkNameExist("Terry")
-    } catch (error) {
-        return error
-    }
+  try {
+    return await checkNameExist("Terry");
+  } catch (error) {
+    return error;
+  }
 }
 
 // checkNameExistAsync().then((res)=>{
 // console.log(res);
 // }).catch((rej)=>{console.log(rej);})
 
-
 //!6.	צרו טופס שמאפשר למשתמש לבצע חיפוש על פי פרמטרים, כלומר, תצוגה שמפעילה את הפונקציות למעלה ומציגה למסך את התוצאות.
+
+//!FIRST TRY
+// searchByID.onchange = () => {
+//   getIdAsync()
+//     .then((res) => {
+//       for (const iterator of res) {
+//         showResultIDSearch.innerHTML += `${iterator}`
+//       }
+//     console.log(res);
+//       ;
+//     })
+//     .catch((rej) => {
+//       showResultIDSearch.innerHTML += `${rej}`;
+//     });
+// };
+
+//!SECOND TRY:
+
+buttonID.onclick = () => {
+  let selectValueID = selectValue.options[selectValue.selectedIndex].value;
+  switch (selectValueID) {
+    case "searchByID":
+      getIdAsync()
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((rej) => {
+          console.log(rej);
+        });
+
+      break;
+    case "searchByFName":
+      checkNameExistAsync()
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((rej) => {
+          console.log(rej);
+        });
+      break;
+
+    default:
+      break;
+  }
+};
