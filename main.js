@@ -173,10 +173,26 @@ async function getIdAsync() {
 //!3.	צרו פונקצית פרומיס שמקבלת אימייל של משתמש, הפונקציה ממירה את ה JSON  למערך ומחזירה את המשתמש המתאים, במידה והמשתמש קיים.
 
 function checkEmailExist(email) {
-    return new Promise((resolve,reject)=>{
-        
-    })
+  return new Promise((resolve, reject) => {
+    let arrayObject = JSON.parse(jsonUserInfo);
+    for (const iterator of arrayObject) {
+      if (iterator.email == email) {
+        resolve(iterator);
+      }
+    }
+    reject({ message: "ERROR" });
+  });
 }
+
+async function checkEmailExistAsync() {
+  try {
+    return await checkEmailExist("terry.york@undefined.co.uk");
+  } catch (error) {
+    return error;
+  }
+}
+
+// checkEmailExistAsync().then((res) => {console.log(res);}).catch((rej)=>{console.log(rej);});
 
 //!4.	צרו פונקצית פרומיס שמחזירה מערך של משתמשים שהגיל שלהם גבוה ממספר שמתקבל מבחוץ, במידה וישנם משתמשים.
 
@@ -185,8 +201,8 @@ function getHigherAge(userAnswer) {
     let arrayOfUsersOver = [];
     let objectArrayJson = JSON.parse(jsonUserInfo);
     for (const iterator of objectArrayJson) {
-      if ( iterator.age > userAnswer) {
-        arrayOfUsersOver.push(iterator)
+      if (iterator.age > userAnswer) {
+        arrayOfUsersOver.push(iterator);
         resolve(arrayOfUsersOver);
       }
     }
@@ -210,4 +226,33 @@ async function getHigher() {
 //     console.log(rej);
 //   });
 
-//!5.	צרו פונקצית פרומיס שמחזירה מערך של משתמשים שהשם הפרטי שלהם זהה לשם שמתקבל מבחוץ, במידה וישנם משתמשים. 
+//!5.	צרו פונקצית פרומיס שמחזירה מערך של משתמשים שהשם הפרטי שלהם זהה לשם שמתקבל מבחוץ, במידה וישנם משתמשים.
+
+function checkNameExist(userName) {
+    return new Promise((resolve,reject)=>{
+        let arrayOfSameNames=[];
+        let JSONObject = JSON.parse(jsonUserInfo);
+        for (const iterator of JSONObject) {
+            if (userName == iterator.name.first) {
+                arrayOfSameNames.push(iterator);
+                resolve(arrayOfSameNames)
+            }
+        }
+        reject({message : "THERE IS NO USERS UNDER THIS NAME"})
+    })
+}
+
+async function checkNameExistAsync() {
+    try {
+        return await checkNameExist("Terry")
+    } catch (error) {
+        return error
+    }
+}
+
+// checkNameExistAsync().then((res)=>{
+// console.log(res);
+// }).catch((rej)=>{console.log(rej);})
+
+
+//!6.	צרו טופס שמאפשר למשתמש לבצע חיפוש על פי פרמטרים, כלומר, תצוגה שמפעילה את הפונקציות למעלה ומציגה למסך את התוצאות.
