@@ -275,7 +275,7 @@ async function checkNameExistAsync() {
 //!SECOND TRY:
 
 buttonID.onclick = () => {
-  let selectValueID = selectValue.options[selectValue.selectedIndex].value;
+  let selectValueID = selectValue.options.value;
   switch (selectValueID) {
     case "searchByID":
       getIdAsync()
@@ -285,7 +285,6 @@ buttonID.onclick = () => {
         .catch((rej) => {
           console.log(rej);
         });
-
       break;
     case "searchByFName":
       checkNameExistAsync()
